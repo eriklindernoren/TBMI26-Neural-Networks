@@ -7,12 +7,14 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 3; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
 % You can plot and study dataset 1 to 3 by running:
 % plotCase(X,D)
+
+plotCase(X,D);
 
 %% Select a subset of the training features
 
@@ -29,7 +31,7 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 % Note: you have to modify the kNN() function yourselfs.
 
 % Set the number of neighbors
-k = 1;
+k = 4
 
 LkNN = kNN(Xt{2}, k, Xt{1}, Lt{1});
 

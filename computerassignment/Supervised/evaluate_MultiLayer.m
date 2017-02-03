@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 4; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -23,21 +23,27 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 % XBin1 = Xt{1};
 %% Modify the X Matrices so that a bias is added
 
-% The Training Data
-Xtraining = [ones(1,size(Xt{1}, 2)); Xt{1}];
+% Normalizing the data
+normc(Xt{1});
+normc(Xt{2});
 
-% The Test Data
+% Adds 1 as the first value of each sample for the bias weights
+Xtraining = [ones(1,size(Xt{1}, 2)); Xt{1}];
 Xtest = [ones(1,size(Xt{2}, 2)); Xt{2}];
 
 
 %% Train your single layer network
 % Note: You nned to modify trainSingleLayer() in order to train the network
 
-numHidden = 8; % Change this, Number of hidde neurons 
-numIterations = 2000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.001; % Change this, Your learningrate
-W0 = ones(numHidden, size(Xtraining, 1));
-V0 = ones(2, numHidden);
+numHidden = 40; % Change this, Number of hidde neurons 
+numIterations = 6000; % Change this, Numner of iterations (Epochs)
+learningRate = 0.01; % Change this, Your learningrate
+
+% Setting the initial weights to the range [-1/sqrt(N), 1/sqrt(N)]
+a = -1/sqrt(size(Xtraining,1));
+b = -a;
+W0 = (b-a).*rand(numHidden, size(Xtraining, 1)) + a;
+V0 = (b-a).*rand(size(Dt{1},1), numHidden+1) + a;
 
 %
 tic

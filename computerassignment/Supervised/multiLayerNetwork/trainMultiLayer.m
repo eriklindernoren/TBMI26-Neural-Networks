@@ -35,14 +35,14 @@ for n = 1:numIterations
     Ytraining = runMultiLayer(Xtraining, Wout, Vout);
 
     S = Wout*Xtraining;
-    U = tanh(S);
+    U = [ones(1, size(tanh(S), 2)); tanh(S)];
     Y = Vout*U;
 
     grad_v = (2/numTraining)*(Y - Dtraining)*U';
-    grad_w = (2/numTraining)*((Vout'*(Y - Dtraining)).*(1-U.^2))*Xtraining';
+    grad_w = (2/numTraining)*((Vout'*(Y - Dtraining)).*(1.0000000001-U.^2))*Xtraining';
 
 
-    Wout = Wout - learningRate * grad_w; %Take the learning step.
+    Wout = Wout - learningRate * grad_w(2:end,:); %Take the learning step.
     Vout = Vout - learningRate * grad_v; %Take the learning step.
 
     Ytraining = runMultiLayer(Xtraining, Wout, Vout);

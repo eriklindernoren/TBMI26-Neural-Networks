@@ -12,7 +12,7 @@ faces = double(faces); nonfaces = double(nonfaces);
 %     subplot(5,5,k), imagesc(nonfaces(:,:,10*k)), axis image, axis off
 % end
 % Generate Haar feature masks
-nbrHaarFeatures = 40;
+nbrHaarFeatures = 100;
 haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
 % figure(3)
 % colormap gray
@@ -23,7 +23,7 @@ haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
 % Create a training data set with a number of training data examples
 % from each class. Non-faces = class label y=-1, faces = class label y=1
 
-nbrTrainExamples = 100;
+nbrTrainExamples = 300;
 trainImages = cat(3,faces(:,:,1:nbrTrainExamples/2),nonfaces(:,:,1:nbrTrainExamples/2));
 xTrain = ExtractHaarFeatures(trainImages,haarFeatureMasks);
 yTrain = [ones(1,nbrTrainExamples/2), -ones(1,nbrTrainExamples/2)];
@@ -32,7 +32,7 @@ yTrain = [ones(1,nbrTrainExamples/2), -ones(1,nbrTrainExamples/2)];
 d = ones(1,nbrTrainExamples);
 d(1:nbrTrainExamples) = 1 / nbrTrainExamples;
 
-nClf = 40;
+nClf = 100;
 % clf = [threshold, polarity, featureIndex, alpha]
 clfs = ones(4, nClf);
 
