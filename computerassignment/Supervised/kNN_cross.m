@@ -27,10 +27,8 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 % Note: Xt, Dt, Lt will be cell arrays, to extract a bin from them use i.e.
 % XBin1 = Xt{1};
 
-%% Use kNN to classify data
-% Note: you have to modify the kNN() function yourselfs.
+%% kNN Cross-validation
 
-% Set the number of neighbors
 bestK = -1;
 bestAcc = 0;
 
@@ -48,11 +46,6 @@ for k = 8:10
         lTrain = cat(1, temp{1:end});
         
         LkNN = kNN(xTest, k, xTrain, lTrain);
-
-        % Calculate The Confusion Matrix and the Accuracy
-        % Note: you have to modify the calcConfusionMatrix() function yourselfs.
-
-        % The confucionMatrix
         cM = calcConfusionMatrix( LkNN, lTest);
 
         % The accuracy
@@ -60,8 +53,7 @@ for k = 8:10
         totalAcc = totalAcc + acc;
     end
     totalAcc = totalAcc / numCrossBins;
-    k
-    totalAcc
+
     if totalAcc > bestAcc
         bestK = k;
         bestAcc = totalAcc;
@@ -82,7 +74,6 @@ acc = calcAccuracy(cM);
 
 bestK
 acc
-
 
 %% Plot classifications
 % Note: You do not need to change this code.
