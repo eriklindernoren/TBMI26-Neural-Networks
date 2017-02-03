@@ -50,16 +50,16 @@ tic
 [W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate );
 trainingTime = toc;
 %% Plot errors
-figure(1101)
-clf
-[mErr, mErrInd] = min(testError);
-plot(trainingError,'k','linewidth',1.5)
-hold on
-plot(testError,'r','linewidth',1.5)
-plot(mErrInd,mErr,'bo','linewidth',1.5)
-hold off
-title('Training and Test Errors, Multi-Layer')
-legend('Training Error','Test Error','Min Test Error')
+% figure(1101)
+% clf
+% [mErr, mErrInd] = min(testError);
+% plot(trainingError,'k','linewidth',1.5)
+% hold on
+% plot(testError,'r','linewidth',1.5)
+% plot(mErrInd,mErr,'bo','linewidth',1.5)
+% hold off
+% title('Training and Test Errors, Multi-Layer')
+% legend('Training Error','Test Error','Min Test Error')
 
 %% Calculate The Confusion Matrix and the Accuracy of the Evaluation Data
 % Note: you have to modify the calcConfusionMatrix() function yourselfs.

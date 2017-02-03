@@ -20,19 +20,18 @@ function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtra
 trainingError = nan(numIterations+1,1);
 testError = nan(numIterations+1,1);
 numTraining = size(Xtraining,2);
-numTest = size(Xtest,2);
-numClasses = size(Dtraining,1) - 1;
+% numTest = size(Xtest,2);
+% numClasses = size(Dtraining,1) - 1;
 Wout = W0;
 Vout = V0;
 
 % Calculate initial error
-Ytraining = runMultiLayer(Xtraining, W0, V0);
-Ytest = runMultiLayer(Xtest, W0, V0);
-trainingError(1) = sum(sum((Ytraining - Dtraining).^2))/(numTraining*numClasses);
-testError(1) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
+% Ytraining = runMultiLayer(Xtraining, W0, V0);
+% Ytest = runMultiLayer(Xtest, W0, V0);
+% trainingError(1) = sum(sum((Ytraining - Dtraining).^2))/(numTraining*numClasses);
+% testError(1) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
 
 for n = 1:numIterations
-    Ytraining = runMultiLayer(Xtraining, Wout, Vout);
 
     S = Wout*Xtraining;
     U = [ones(1, size(tanh(S), 2)); tanh(S)];
@@ -45,11 +44,11 @@ for n = 1:numIterations
     Wout = Wout - learningRate * grad_w(2:end,:); %Take the learning step.
     Vout = Vout - learningRate * grad_v; %Take the learning step.
 
-    Ytraining = runMultiLayer(Xtraining, Wout, Vout);
-    Ytest = runMultiLayer(Xtest, Wout, Vout);
-
-    trainingError(1+n) = sum(sum((Ytraining - Dtraining).^2))/(numTraining*numClasses);
-    testError(1+n) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
+%     Ytraining = runMultiLayer(Xtraining, Wout, Vout);
+%     Ytest = runMultiLayer(Xtest, Wout, Vout);
+%     Ytraining = runMultiLayer(Xtraining, Wout, Vout);
+%     trainingError(1+n) = sum(sum((Ytraining - Dtraining).^2))/(numTraining*numClasses);
+%     testError(1+n) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
 end
 
 end
