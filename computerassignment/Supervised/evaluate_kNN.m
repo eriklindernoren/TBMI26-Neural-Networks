@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 3; % Change this to load new data 
+dataSetNr = 4; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -23,6 +23,10 @@ numSamplesPerLabelPerBin = 100; % Number of samples per label per bin, set to in
 selectAtRandom = true; % true = select features at random, false = select the first features
 
 [ Xt, Dt, Lt ] = selectTrainingSamples(X, D, L, numSamplesPerLabelPerBin, numBins, selectAtRandom );
+
+% Normalizing the data
+normc(Xt{1});
+normc(Xt{2});
 
 % Note: Xt, Dt, Lt will be cell arrays, to extract a bin from them use i.e.
 % XBin1 = Xt{1};
