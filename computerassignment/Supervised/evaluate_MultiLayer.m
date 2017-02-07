@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 4; % Change this to load new data 
+dataSetNr = 1; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -24,8 +24,8 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 %% Modify the X Matrices so that a bias is added
 
 % Normalizing the data
-normc(Xt{1});
-normc(Xt{2});
+%normc(Xt{1});
+%normc(Xt{2});
 
 % Adds 1 as the first value of each sample for the bias weights
 Xtraining = [ones(1,size(Xt{1}, 2)); Xt{1}];
