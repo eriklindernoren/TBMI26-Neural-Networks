@@ -9,7 +9,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 3; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -20,6 +20,10 @@ numSamplesPerLabelPerBin = 100; % Number of samples per label per bin, set to in
 selectAtRandom = true; % true = select features at random, false = select the first features
 
 [ Xt, Dt, Lt ] = selectTrainingSamples(X, D, L, numSamplesPerLabelPerBin, numBins, selectAtRandom );
+
+% Normalizing the data
+% normc(Xt{1});
+% normc(Xt{2});
 
 % Note: Xt, Dt, Lt will be cell arrays, to extract a bin from them use i.e.
 % XBin1 = Xt{1};
@@ -34,8 +38,8 @@ Xtest = [ones(1,size(Xt{2},2)); Xt{2}];
 %% Train your single layer network
 % Note: You nned to modify trainSingleLayer() in order to train the network
 
-numIterations = 40000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.00005; % Change this, Your learningrate
+numIterations = 10000; % Change this, Numner of iterations (Epochs)
+learningRate = 0.0005; % Change this, Your learningrate
 a = -1/sqrt(size(Xtraining,1));
 b = -a;
 W0 = (b-a).*rand(size(Dt{1},1), size(Xtraining, 1)) + a;
