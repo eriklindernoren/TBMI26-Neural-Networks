@@ -14,7 +14,7 @@ dataSetNr = 3; % Change this to load new data
 
 %% Select a subset of the training features
 
-numBins = 100; % Number of Bins you want to devide your data into
+numBins = 2; % Number of Bins you want to devide your data into
 numSamplesPerLabelPerBin = inf; % Number of samples per label per bin, set to inf for max number (total number is numLabels*numSamplesPerBin)
 selectAtRandom = true; % true = select features at random, false = select the first features
 
@@ -25,19 +25,19 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 %% Modify the X Matrices so that a bias is added
 
 % Use few training samples
-% a = Xt(2:end);
-% Xt{2} = cat(2, a{:});
-% 
-% a = Dt(2:end);
-% Dt{2} = cat(2, a{:});
-% 
-% a = Lt(2:end);
-% Lt{2} = cat(1, a{:});
+a = Xt(2:end);
+Xt{2} = cat(2, a{:});
+
+a = Dt(2:end);
+Dt{2} = cat(2, a{:});
+
+a = Lt(2:end);
+Lt{2} = cat(1, a{:});
 
 
 % Normalizing the data
-%normc(Xt{1});
-%normc(Xt{2});
+normc(Xt{1});
+normc(Xt{2});
 
 % Adds 1 as the first value of each sample for the bias weights
 Xtraining = [ones(1,size(Xt{1}, 2)); Xt{1}];
@@ -47,8 +47,8 @@ Xtest = [ones(1,size(Xt{2}, 2)); Xt{2}];
 %% Train your single layer network
 % Note: You nned to modify trainSingleLayer() in order to train the network
 
-numHidden = 200; % Change this, Number of hidde neurons 
-numIterations = 10000; % Change this, Numner of iterations (Epochs)
+numHidden = 10; % Change this, Number of hidde neurons 
+numIterations = 3000; % Change this, Numner of iterations (Epochs)
 learningRate = 0.01; % Change this, Your learningrate
 
 % Setting the initial weights to the range [-1/sqrt(N), 1/sqrt(N)]
@@ -62,16 +62,16 @@ tic
 [W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate );
 trainingTime = toc;
 %% Plot errors
-% figure(1101)
-% clf
-% [mErr, mErrInd] = min(testError);
-% plot(trainingError,'k','linewidth',1.5)
-% hold on
-% plot(testError,'r','linewidth',1.5)
-% plot(mErrInd,mErr,'bo','linewidth',1.5)
-% hold off
-% title('Training and Test Errors, Multi-Layer')
-% legend('Training Error','Test Error','Min Test Error')
+figure(1101)
+clf
+[mErr, mErrInd] = min(testError);
+plot(trainingError,'k','linewidth',1.5)
+hold on
+plot(testError,'r','linewidth',1.5)
+plot(mErrInd,mErr,'bo','linewidth',1.5)
+hold off
+title('Training and Test Errors, Multi-Layer')
+legend('Training Error','Test Error','Min Test Error')
 
 %% Calculate The Confusion Matrix and the Accuracy of the Evaluation Data
 % Note: you have to modify the calcConfusionMatrix() function yourselfs.

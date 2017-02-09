@@ -12,7 +12,7 @@ faces = double(faces); nonfaces = double(nonfaces);
 %     subplot(5,5,k), imagesc(nonfaces(:,:,10*k)), axis image, axis off
 % end
 % Generate Haar feature masks
-nbrHaarFeatures = 100;
+nbrHaarFeatures = 200;
 haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
 % figure(3)
 % colormap gray
@@ -31,6 +31,8 @@ yTrain = [ones(1,nbrTrainExamples/2), -ones(1,nbrTrainExamples/2)];
 
 d = ones(1,nbrTrainExamples);
 d(1:nbrTrainExamples) = 1 / nbrTrainExamples;
+
+accuracies = [];
 
 nClf = 100;
 % clf = [threshold, polarity, featureIndex, alpha]
@@ -56,7 +58,7 @@ for c = 1:nClf
                 end
                 err = err + d(m)*(y ~= h);
             end
-            if err > 0.5 && err < 1
+            if err > 0.5
                 p = -1;
                 err = 1 - err;
             end
@@ -90,13 +92,14 @@ for c = 1:nClf
 end
 
 % TEST MODEL
-nbrTestExamples = 3000;
+nbrTestExamples = 4900;
 f = nbrTrainExamples/2;
 t = (nbrTrainExamples + nbrTestExamples)/2;
 testImages = cat(3,faces(:,:,f:t),nonfaces(:,:,f:t));
 xTest = ExtractHaarFeatures(testImages,haarFeatureMasks);
 yTest = [ones(1,nbrTestExamples/2), -ones(1,nbrTestExamples/2)];
 
+misclassified = []
 correct = 0;
 for i = 1:nbrTestExamples
     s = 0;
@@ -113,7 +116,29 @@ for i = 1:nbrTestExamples
         s = s + alpha*h;
     end
     y = yTest(i);
-    correct = correct + (sign(s) == y);
+    if sign(s) == y
+        correct = correct + 1;
+    else
+        misclassified = [misclassified, i];
+    end
 end
 
-accuracy = correct / nbrTestExamples
+accuracy = correct / nbrTestExamples;
+
+accuracy
+numel(misclassified)
+figure(1)
+colormap gray
+for i = 1:25
+    misclassified_i = misclassified(i);
+    face = faces(:,:,f + misclassified_i);
+    subplot(5,5,i), imagesc(face), axis image, axis off
+end
+
+figure(2)
+colormap gray
+for i = 1:25
+    misclassified_i = misclassified(end - i);
+    nonface = nonfaces(:,:,f + misclassified_i);    
+    subplot(5,5,i), imagesc(nonface), axis image, axis off
+end
