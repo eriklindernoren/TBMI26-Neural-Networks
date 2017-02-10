@@ -32,7 +32,7 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 bestK = -1;
 bestAcc = 0;
 
-for k = 8:10
+for k = 1:7
     totalAcc = 0;
     for i = 1:numCrossBins
         xTest = Xt{i};
@@ -53,11 +53,11 @@ for k = 8:10
         totalAcc = totalAcc + acc;
     end
     totalAcc = totalAcc / numCrossBins;
-
+    k
+    totalAcc
     if totalAcc > bestAcc
         bestK = k;
         bestAcc = totalAcc;
-        disp(bestAcc)
     end
 end
 
