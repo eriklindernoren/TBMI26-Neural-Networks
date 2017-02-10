@@ -1,7 +1,7 @@
 load countrydata;
 
 X = countrydata;
-Y = countryclass
+Y = countryclass;
 
 cov = calc_covariance_matrix(X);
 
