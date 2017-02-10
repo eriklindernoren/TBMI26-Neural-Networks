@@ -35,8 +35,8 @@ Xtest = [ones(1,size(Xt{2}, 2)); Xt{2}];
 %% Train your single layer network
 % Note: You nned to modify trainSingleLayer() in order to train the network
 
-numHidden = 40; % Change this, Number of hidde neurons 
-numIterations = 6000; % Change this, Numner of iterations (Epochs)
+numHidden = 80; % Change this, Number of hidde neurons 
+numIterations = 10000; % Change this, Numner of iterations (Epochs)
 learningRate = 0.01; % Change this, Your learningrate
 
 % Setting the initial weights to the range [-1/sqrt(N), 1/sqrt(N)]
@@ -69,7 +69,7 @@ tic
 [ Y, LMultiLayerTest ] = runMultiLayer(Xtest, W,V);
 classificationTime = toc/length(Xtest);
 % The confucionMatrix
-cM = calcConfusionMatrix( LMultiLayerTest, Lt{2})
+cM = calcConfusionMatrix( LMultiLayerTest, Lt{2});
 % The accuracy
 acc = calcAccuracy(cM);
 

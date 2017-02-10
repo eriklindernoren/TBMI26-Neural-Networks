@@ -38,7 +38,7 @@ for n = 1:numIterations
     Y = Vout*U;
 
     grad_v = (2/numTraining)*(Y - Dtraining)*U';
-    grad_w = (2/numTraining)*((Vout'*(Y - Dtraining)).*(1.0000000001-U.^2))*Xtraining';
+    grad_w = (2/numTraining)*((Vout'*(Y - Dtraining)).*(1.000001-U.^2))*Xtraining';
 
 
     Wout = Wout - learningRate * grad_w(2:end,:); %Take the learning step.
