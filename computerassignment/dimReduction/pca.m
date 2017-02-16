@@ -14,7 +14,8 @@ b = eigenvectors(:,2)'*X;
 % Find the index of Georgia
 idx = find(all(ismember(countries,'Georgia     '),2));
 
-% Georgia
+% Set Georgia to new color
 Y(idx) = 3;
 
-gscatter(a, b, Y);
+% Plot
+scatter(a, b, 15, Y);
